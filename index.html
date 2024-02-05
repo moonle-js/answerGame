@@ -52,10 +52,31 @@
         <section class="statistics" id="statistics"></section>
 
 
-        <button>Start</button>
+        <button id ="button">Start</button>
+        <button id = "addNewQuestion">Add question</button>
 
 
+        <!-- Add question section -->
+        <section id="addQuestion">
+            <div id="questionNew">
+                <textarea name="" id="textarea" placeholder="Write question here"></textarea>
+            </div>
+
+            <div class="newAnswers" id="newAnswers">
+                <input type="text" name="" id="firstAnswer" placeholder="Correct answer here">
+                <input type="text" name="" id="secondAnswer" placeholder="Wrong answer here">
+                <input type="text" name="" id="thirdAnswer" placeholder="Wrong answer here">
+            </div>
+
+            <button id="newSubmit">Submit</button>
+        </section>
     </main>
+
+    <article style="display: none;">
+        <h2> Do you want Add one else?</h2>
+        <button id="yesWant">Yes</button>
+        <button id="noWant">No</button>
+    </article>
 
     <footer>
         <span class="copyrights">

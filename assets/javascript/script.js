@@ -37,10 +37,12 @@ function nextQuestion(){
     document.querySelectorAll('section').forEach(function(e){
         e.style.display = 'flex';
     })
+    document.querySelector('#addQuestion').style.display = "none";
+    document.querySelector('#addNewQuestion').style.display = "none";
 
     document.querySelector('#statistics').style.display = "none";
     
-    document.querySelector('button').style.display ="none";
+    document.querySelector('#button').style.display ="none";
     document.querySelector('#question .p').innerHTML = `${questions[period].question}`
 
     var randomNumber = Math.floor(Math.random()*6);
@@ -194,8 +196,8 @@ function yoxla(){
                         <p>You answered false ${questions.length - trueAnswers} times</p>
                         <p>Your percentage is ${(100 * trueAnswers/questions.length).toFixed(0)}%</p>
                     `
-                    document.querySelector('button').style.display = 'flex';    
-                    document.querySelector('button').innerHTML = 'Restart';    
+                    document.querySelector('#button').style.display = 'flex';    
+                    document.querySelector('#button').innerHTML = 'Restart';    
                     period = 0;
                     trueAnswers = 0;
                 }
@@ -204,7 +206,88 @@ function yoxla(){
 }
 
 
-document.querySelector('button').onclick = function(){
+document.querySelector('#button').onclick = function(){
     document.querySelector('#progress_secondary').style.width = "0";
     setTimeout(nextQuestion, 1000)
 }
+
+
+
+
+// Adding question
+
+var addNewQuestion = document.querySelector('#addNewQuestion');
+var textarea = document.querySelector('#textarea');
+var firstAnswer = document.querySelector('#firstAnswer');
+var secondAnswer = document.querySelector('#secondAnswer');
+var thirdAnswer = document.querySelector('#thirdAnswer');
+var addQuestion = document.querySelector('#addQuestion')
+var newSubmit = document.querySelector('#newSubmit')
+
+function showAddingPanel(){
+    document.querySelector('#button').style.bottom = "100px"
+    document.querySelector('#button').style.position = "absolute";
+
+    document.querySelector('#progress_bar').style.display = "none";
+    document.querySelector('#question').style.display = "none";
+    document.querySelector('#answers').style.display = "none";
+    addQuestion.style.display = "flex";
+
+
+    newSubmit.addEventListener('click', function(){
+        document.querySelector('#addNewQuestion').style.display = "none";
+
+        if(textarea.value, firstAnswer.value, secondAnswer.value, thirdAnswer.value){
+            questions.push(
+                {
+                    question: textarea.value,
+                    rightAnswer: firstAnswer.value,
+                    wrongAsnwers: [
+                        secondAnswer.value, thirdAnswer.value
+                    ]
+                }
+            )
+
+            document.querySelector('article').style.display = "flex";
+            document.querySelector('main').style.filter = "blur(10px)";
+
+
+
+            document.querySelector('#yesWant').addEventListener('click', function(){
+                document.querySelector("#addQuestion").style.height = "80%"
+                document.querySelector('article').style.display = "none";
+                document.querySelector('main').style.filter = "blur(0px)";
+                document.querySelector('#button').style.display = "none";
+            })
+
+            document.querySelector('#noWant').addEventListener('click', function(){
+                document.querySelector('article').style.display = "none";
+                document.querySelector('main').style.filter = "blur(0px)";
+                document.querySelectorAll('section').forEach(function(e){
+                    e.style.display = 'flex';
+                })
+                document.querySelector('#statistics').style.display = "none"
+                document.querySelector('#button').style.display = "flex";
+
+                addQuestion.style.display = "none";
+            })
+
+
+        }else{
+            alert("Please fill the prompts")
+        }
+
+
+        textarea.value = "";
+        firstAnswer.value = "";
+        secondAnswer.value = "";
+        thirdAnswer.value = "";
+    })
+
+    
+
+
+
+}
+
+addNewQuestion.addEventListener('click', showAddingPanel)
